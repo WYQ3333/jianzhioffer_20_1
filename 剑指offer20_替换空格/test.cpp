@@ -19,12 +19,18 @@ public:
 			++cur;
 		}
 		s.push_back('\0');
-		str = const_cast<char*>(s.c_str());
+		_str = const_cast<char*>(s.c_str());
 	}
+public:
+	char* _str;
 };
 
 void TestFunc(){
-
+	char *str = "Hello world";
+	Solution s;
+	s.replaceSpace(str, strlen(str));
+	//strlen计算长度不包括'\0'
+	cout << s._str<< endl;
 }
 
 int main(){
