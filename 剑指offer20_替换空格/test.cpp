@@ -19,45 +19,94 @@ using namespace std;
 //			++cur;
 //		}
 //		s.push_back('\0');
-//		_str = const_cast<char*>(s.c_str());
+//		str = const_cast<char*>(s.c_str());
 //	}
+//};
+
+//class Solution {
 //public:
-//	char* _str;
+//	void replaceSpace(char *str, int length) {
+//		if (str == NULL)
+//			return;
+//		int CountOfBlanks = 0;
+//		int Originallength = 0;
+//		for (int i = 0; str[i] != '\0'; i++)
+//		{
+//			Originallength++;
+//			if (str[i] == ' ')
+//				++CountOfBlanks;
+//		}
+//		int len = Originallength + 2 * CountOfBlanks;
+//		if (len + 1>length)
+//			return;
+//
+//		char*pStr1 = str + Originallength;//复制结束符‘\0’
+//		char*pStr2 = str + len;
+//		while (pStr1<pStr2)
+//		{
+//			if (*pStr1 == ' ')
+//			{
+//				*pStr2-- = '0';
+//				*pStr2-- = '2';
+//				*pStr2-- = '%';
+//			}
+//			else
+//			{
+//				*pStr2-- = *pStr1;
+//			}
+//			--pStr1;
+//		}
+//	}
 //};
 
 class Solution {
 public:
 	void replaceSpace(char *str, int length) {
-		if (str == NULL)
+		if (str == NULL || length<0)
 			return;
-		int CountOfBlanks = 0;
-		int Originallength = 0;
-		for (int i = 0; str[i] != '\0'; i++)
-		{
-			Originallength++;
+		int orignallength = 0;
+		int countofbalnk = 0;
+		for (int i = 0; str[i] != '\0'; i++){
+			orignallength++;
 			if (str[i] == ' ')
-				++CountOfBlanks;
+				countofbalnk++;
 		}
-		int len = Originallength + 2 * CountOfBlanks;
-		if (len + 1>length)
-			return;
+		int newlength = orignallength + countofbalnk * 2;//插入后的长度
 
-		char*pStr1 = str + Originallength;//复制结束符‘\0’
-		char*pStr2 = str + len;
-		while (pStr1<pStr2)
+		//char *str2 = (char *)malloc(sizeof(char)*newlength);
+		////char *str2 = new char[orignallength + 2 * countofblank];
+		//for(int i=0,j=0;str[i]!='\0';i++)
+		//{
+		//    if(str[i]==' '){
+		//        str2[j]='%';
+		//        str2[j+1]='2';
+		//        str2[j+2]='0';
+		//        j=j+3;
+		//    }
+		//    else{
+		//        str2[j]=str[i];
+		//        j++;
+		//    }
+		//}
+		//str=str2;
+
+		int pOrignallength = orignallength;
+		int pNewlength = newlength;
+		while (pOrignallength >= 0 && pNewlength>pOrignallength)
 		{
-			if (*pStr1 == ' ')
+			if (str[pOrignallength] == ' ')
 			{
-				*pStr2-- = '0';
-				*pStr2-- = '2';
-				*pStr2-- = '%';
+				str[pNewlength--] = '0';
+				str[pNewlength--] = '2';
+				str[pNewlength--] = '%';
 			}
 			else
 			{
-				*pStr2-- = *pStr1;
+				str[pNewlength--] = str[pOrignallength];
 			}
-			--pStr1;
+			pOrignallength--;
 		}
+
 	}
 };
 
